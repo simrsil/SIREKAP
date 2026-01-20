@@ -14,8 +14,7 @@ class LaporanPasien extends CI_Controller
     public function index()
     {
         $data['title'] = 'Laporan Pasien';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_laporan_pasien_perdokter');
         $this->load->view('layout/footer');
     }

@@ -22,8 +22,7 @@ class ObatPerDokter extends CI_Controller
 	{
 		$data['title'] = 'Obat Per Dokter Ranap';
 		$data['dokter'] = $this->ModelObatRalan->getDokterFilter()->result();
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/sidebar', $data);
+		$this->load->view('layout/top-nav', $data);
 		$this->load->view('v_obat_perdokter_ranap');
 		$this->load->view('layout/footer');
 	}

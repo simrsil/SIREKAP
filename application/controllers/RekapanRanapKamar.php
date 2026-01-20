@@ -14,8 +14,7 @@ class RekapanRanapKamar extends CI_Controller
     public function index()
     {
         $data['title'] = 'Kamar Inap/Bangsal';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_ranap_kamar');
         $this->load->view('layout/footer');
     }

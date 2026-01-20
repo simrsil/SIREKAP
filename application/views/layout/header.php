@@ -20,8 +20,11 @@
     <link rel="stylesheet" href="<?= base_url('Assets/') ?>css/adminlte.min.css">
     <link rel="stylesheet" href="<?= base_url('Assets/') ?>css/jquery-ui.min.css">
     <link rel="stylesheet" href="<?= base_url('Assets/') ?>plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="<?= base_url('Assets/') ?>plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
+
 
     <!-- <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"> -->

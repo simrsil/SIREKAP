@@ -14,8 +14,7 @@ class RekapanRanap extends CI_Controller
     public function index()
     {
         $data['title'] = 'Pasien Rawat Inap';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_ranap');
         $this->load->view('layout/footer');
     }
@@ -23,8 +22,7 @@ class RekapanRanap extends CI_Controller
     public function ViewKamarInap()
     {
         $data['title'] = 'Kamar Inap';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_ranap');
         $this->load->view('layout/footer');
     }

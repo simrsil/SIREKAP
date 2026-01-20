@@ -18,8 +18,7 @@ class RekapanAuditAPD extends CI_Controller
 	public function index()
 	{
 		$data['title'] = 'Audit Kepatuhan APD';
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/sidebar', $data);
+		$this->load->view('layout/top-nav', $data);
 		$this->load->view('v_audit_kepatuhan_apd');
 		$this->load->view('layout/footer');
 	}

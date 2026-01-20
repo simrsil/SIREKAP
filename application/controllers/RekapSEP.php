@@ -14,8 +14,7 @@ class RekapSEP extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Bridging SEP BPJS';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_cetak_sep');
         $this->load->view('layout/footer');
     }
