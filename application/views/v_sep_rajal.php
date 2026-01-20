@@ -57,17 +57,15 @@
                                     <th>Action</th>
                                     <th>Poliklinik</th>
                                     <th>Dokter</th>
-                                    <th>Jam</th>
                                     <th>SEP Tercetak</th>
                                     <th>BPJS</th>
-                                    <th>Umum</th>
                                     <th>Lain-lain</th>
+                                    <th>Batal</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
+
                         </table>
-                    </div>
-                    <div class="card-footer">
-                        Footer
                     </div>
                 </div>
             </div>
@@ -93,9 +91,11 @@
                                 <th>Dokter</th>
                                 <th>Poliklinik</th>
                                 <th>Jenis Bayar</th>
-                                <th>No SEP</th>
+                                <th>SEP</th>
+                                <th>Surat Kontrol</th>
                             </tr>
                         </thead>
+
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -105,72 +105,4 @@
         </div>
     </div>
 </section>
-<script>
-    $(function() {
-        $("#tglSepRajal1, #tglSepRajal2").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-        });
-    });
-</script>
-<script>
-    let tabelSEPRajal = $('#tabel-sep-rajal').DataTable({
-        processing: true,
-        serverSide: true,
-        orderable: false,
-        paging: false,
-        info: false,
-        ajax: {
-            url: "<?= base_url('SEPRajal/dataSEPRajal') ?>",
-            type: "post",
-            data: function(data) {
-                data.tglSepRajal1 = $('#tglSepRajal1').val();
-                data.tglSepRajal2 = $('#tglSepRajal2').val();
-                // data.kd_dokter = kd_dokter
-            }
-        }
-    })
-    $('#tampil-sep-rajal').on('click', function() {
-        $('#modalSEPRajal').modal('hide');
-        tabelSEPRajal.ajax.reload();
-    });
-    $('#refresh-sep-rajal').on('click', function() {
-        location.reload();
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $(document).on('click', '.kd-dokter-btn', function() {
-            // Ambil nilai dari atribut data-dokter
-            const kd_dokter = $(this).data('dokter');
-
-            // Sekarang variabelnya sudah didefinisikan dan bisa dipakai
-            // console.log("Kode dokter:", kd_dokter);
-
-            // Tampilkan modal
-            $('#modalDokter').modal('show');
-            //menghapus inisialisasi dataTable
-            if ($.fn.dataTable.isDataTable('#tabel-data-sep2')) {
-                $('#tabel-data-sep2').DataTable().clear().destroy();
-            }
-            let tabelPasienSEP = $('#tabel-data-sep2').DataTable({
-                processing: true,
-                serverSide: true,
-                orderable: false,
-                paging: false,
-                info: false,
-                searching: false,
-                ajax: {
-                    url: "<?= base_url('SEPRajal/dataPasienSEP') ?>",
-                    type: "post",
-                    data: function(data) {
-                        data.kd_dokter = kd_dokter;
-                        data.tglSepRajal1 = $('#tglSepRajal1').val();
-                        data.tglSepRajal2 = $('#tglSepRajal2').val();
-                    }
-                }
-            })
-        });
-    });
-</script>
+<script src="<?= base_url('Assets/js/app/ralan.js') ?>"></script>
