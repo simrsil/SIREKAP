@@ -61,6 +61,14 @@ class ModelTaskID extends CI_Model
         return $this->db->get();
     }
 
+    public function JKN($norawat){
+        $this->db->select('COUNT(referensi_mobilejkn_bpjs.no_rawat) as jkn');
+        $this->db->from('referensi_mobilejkn_bpjs');
+        $this->db->where('referensi_mobilejkn_bpjs.no_rawat', $norawat);
+
+        return $this->db->get();
+    }
+
     public function TaskID_1($norawat)
     {
 

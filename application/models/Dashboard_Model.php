@@ -1,14 +1,84 @@
 <?php
 class Dashboard_Model extends CI_Model
 {
-
-    public function jkn()
+    public function jkn($periode)
     {
-        $this->db->select('no_rawat,nomorkartu,nik,nohp,kodepoli,pasienbaru,norm,tanggalperiksa,kodedokter,jampraktek,jeniskunjungan,nomorreferensi,nomorantrean,angkaantrean,estimasidilayani,sisakuotajkn,sisakuotanonjkn,kuotanonjkn,status,validasi,statuskirim');
-        $this->db->from('referensi_mobilejkn_bpjs');
-        $this->db->where('tanggalperiksa', date('Y-m-d'));
+        list($tahun, $bulan) = explode('-', $periode);
 
-        return $this->db->get();
+        $bulan_dipilih = "$tahun-$bulan";
+        $bulan_sekarang = date('Y-m');
+
+        // Jika bulan yang dipilih = bulan sekarang
+        if ($bulan_dipilih == $bulan_sekarang) {
+            $awal  = "$tahun-$bulan-01";
+            $akhir = date('Y-m-d'); // hari ini
+        }
+        // Jika bulan yang dipilih = bulan sebelumnya / lama
+        else {
+            $awal  = "$tahun-$bulan-01";
+            $akhir = date('Y-m-t', strtotime($awal)); // akhir bulan
+        }
+
+        $this->db->select('referensi_mobilejkn_bpjs.no_rawat');
+        $this->db->from('referensi_mobilejkn_bpjs');
+        $this->db->where('referensi_mobilejkn_bpjs.tanggalperiksa >=', $awal);
+        $this->db->where('referensi_mobilejkn_bpjs.tanggalperiksa <=', $akhir);
+    }
+
+    public function jkn_total($periode)
+    {
+        $this->jkn($periode);
+        return $this->db->count_all_results();
+    }
+
+    public function jkn_checkin($periode)
+    {
+        $this->jkn($periode);
+        $this->db->where('referensi_mobilejkn_bpjs.status', 'Checkin');
+        return $this->db->count_all_results();
+    }
+
+    public function jkn_belum($periode)
+    {
+        $this->jkn($periode);
+        $this->db->where('referensi_mobilejkn_bpjs.status', 'Belum');
+        return $this->db->count_all_results();
+    }
+
+    public function jkn_batal($periode)
+    {
+        $this->jkn($periode);
+        $this->db->where('referensi_mobilejkn_bpjs.status', 'Batal');
+        return $this->db->count_all_results();
+    }
+
+    public function pasien_bpjs($periode)
+    {
+        list($tahun, $bulan) = explode('-', $periode);
+
+        $bulan_dipilih = "$tahun-$bulan";
+        $bulan_sekarang = date('Y-m');
+
+        // Jika bulan yang dipilih = bulan sekarang
+        if ($bulan_dipilih == $bulan_sekarang) {
+            $awal  = "$tahun-$bulan-01";
+            $akhir = date('Y-m-d'); // hari ini
+        }
+        // Jika bulan yang dipilih = bulan sebelumnya / lama
+        else {
+            $awal  = "$tahun-$bulan-01";
+            $akhir = date('Y-m-t', strtotime($awal)); // akhir bulan
+        }
+
+        $this->db->select('reg_periksa.no_rawat');
+        $this->db->from('reg_periksa');
+        $this->db->where('reg_periksa.status_lanjut', 'Ralan');
+        $this->db->where('reg_periksa.stts <>', 'Batal');
+        $this->db->where('reg_periksa.kd_pj', 'BPJ');
+        $this->db->where('reg_periksa.tgl_registrasi >=', $awal);
+        $this->db->where('reg_periksa.tgl_registrasi <=', $akhir);
+
+        return $this->db->count_all_results();
     }
 
     public function poliklinik()
@@ -98,6 +168,24 @@ class Dashboard_Model extends CI_Model
         $this->db->where('reg_periksa.tgl_registrasi', date('Y-m-d'));
         $this->db->where('reg_periksa.kd_poli <>', 'IGDK');
         $this->db->group_by('reg_periksa.kd_dokter,reg_periksa.kd_pj');
+
+        return $this->db->get();
+    }
+
+    public function GrafikJKNHarian($bulan, $tahun)
+    {
+        $start = "$tahun-$bulan-01";
+        $end   = date('Y-m-t', strtotime($start));
+
+        $this->db->select('DAY(tanggalperiksa) as tanggal,
+            SUM(CASE WHEN status = "Checkin" THEN 1 ELSE 0 END) as pasien,
+            SUM(CASE WHEN status = "Belum" THEN 1 ELSE 0 END) as kunjungan,
+            SUM(CASE WHEN status = "Batal" THEN 1 ELSE 0 END) as batal');
+        $this->db->from('referensi_mobilejkn_bpjs');
+        $this->db->where('tanggalperiksa >=', $start);
+        $this->db->where('tanggalperiksa <=', $end);
+        $this->db->group_by('DAY(tanggalperiksa)');
+        $this->db->order_by('tanggal', 'ASC');
 
         return $this->db->get();
     }

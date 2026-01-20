@@ -40,7 +40,7 @@
                   <th>No.RM</th>
                   <th>Pasien</th>
                   <th>Cara Bayar</th>
-                  <th>Status Pasien</th>
+                  <th>JKN</th>
                   <th>SEP</th>
                   <th>T1</th>
                   <th>T2</th>

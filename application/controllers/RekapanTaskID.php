@@ -52,8 +52,9 @@ class RekapanTaskID extends CI_Controller
             $row[] = $dr->no_rkm_medis;
             $row[] = $dr->nm_pasien;
             $row[] = $dr->png_jawab;
-            $row[] = $dr->stts_daftar;
+            //$row[] = $dr->stts_daftar;
 
+            $row[] = $this->renderTaskButtons($this->ModelTaskID->JKN($dr->no_rawat)->result(), 'jkn');
             $row[] = $this->renderTaskButtons($this->ModelTaskID->SEP($dr->no_rawat)->result(), 'sep');
             $row[] = $this->renderTaskButtons($this->ModelTaskID->TaskID_1($dr->no_rawat)->result(), 'taskid1');
             $row[] = $this->renderTaskButtons($this->ModelTaskID->TaskID_2($dr->no_rawat)->result(), 'taskid2');
