@@ -17,8 +17,7 @@ class PasienRanapBpjs extends CI_Controller
     }
     public function index() {
         $data['title'] = 'Pasien Ranap BPJS';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_pasien_bpjs_ranap');
         $this->load->view('layout/footer');
     }
@@ -112,16 +111,17 @@ class PasienRanapBpjs extends CI_Controller
         $activeWorksheet->setCellValue('C1', 'No RM');
         $activeWorksheet->setCellValue('D1', 'Kelas SEP');
         $activeWorksheet->setCellValue('E1', 'Tgl SEP');
-        $activeWorksheet->setCellValue('F1', 'Ruang');
-        $activeWorksheet->setCellValue('G1', 'MRS');
-        $activeWorksheet->setCellValue('H1', 'KRS');
-        $activeWorksheet->setCellValue('I1', 'LOS');
-        $activeWorksheet->setCellValue('J1', 'Dokter');
-        $activeWorksheet->setCellValue('K1', 'Diagnosa');
-        $activeWorksheet->setCellValue('L1', 'INA BPJS');
-        $activeWorksheet->setCellValue('M1', 'Real Cost');
-        $activeWorksheet->setCellValue('N1', 'Selisih');
-        $activeWorksheet->setCellValue('O1', 'Keterangan');
+        $activeWorksheet->setCellValue('F1', 'Jenis Pembayaran');
+        $activeWorksheet->setCellValue('G1', 'Ruang');
+        $activeWorksheet->setCellValue('H1', 'MRS');
+        $activeWorksheet->setCellValue('I1', 'KRS');
+        $activeWorksheet->setCellValue('J1', 'LOS');
+        $activeWorksheet->setCellValue('K1', 'Dokter');
+        $activeWorksheet->setCellValue('L1', 'Diagnosa');
+        $activeWorksheet->setCellValue('M1', 'INA BPJS');
+        $activeWorksheet->setCellValue('N1', 'Real Cost');
+        $activeWorksheet->setCellValue('O1', 'Selisih');
+        $activeWorksheet->setCellValue('P1', 'Keterangan');
         $row = 2;
         $no = 1;
         foreach ($dataPasien as $dp) {
@@ -137,10 +137,11 @@ class PasienRanapBpjs extends CI_Controller
             $activeWorksheet->setCellValue('C' . $row, $dp->no_rkm_medis);
             $activeWorksheet->setCellValue('D' . $row, $kelasBpjs);
             $activeWorksheet->setCellValue('E' . $row, $dp->tglsep);
+            $activeWorksheet->setCellValue('F' . $row, $dp->png_jawab);
             foreach ($dataKamar as $dk) {
-                $activeWorksheet->setCellValue('F' . $row, $dk->kamar);
-                $activeWorksheet->setCellValue('G' . $row, $dk->tgl_masuk_awal);
-                $activeWorksheet->setCellValue('H' . $row, $dk->tgl_keluar_akhir);
+                $activeWorksheet->setCellValue('G' . $row, $dk->kamar);
+                $activeWorksheet->setCellValue('H' . $row, $dk->tgl_masuk_awal);
+                $activeWorksheet->setCellValue('I' . $row, $dk->tgl_keluar_akhir);
                 if (substr($dk->tgl_keluar_akhir, 0, 10) != '0000-00-00') {
                     $tglKeluar = new DateTime(substr($dk->tgl_keluar_akhir, 0, 10));
                 } else {
@@ -148,10 +149,10 @@ class PasienRanapBpjs extends CI_Controller
                 }
                 $tglMasuk =  new DateTime(substr($dk->tgl_masuk_awal, 0, 10));
                 $los = $tglKeluar->diff($tglMasuk)->days + 1;
-                $activeWorksheet->setCellValue('I' . $row, $los);
+                $activeWorksheet->setCellValue('J' . $row, $los);
             }
 
-            $activeWorksheet->setCellValue('J' . $row, $dp->nm_dokter);
+            $activeWorksheet->setCellValue('K' . $row, $dp->nm_dokter);
             $biayaLab =  $this->ModelBpjsRanap->getPeriksaLab($dp->no_rawat)->result();
             $biayaRad =  $this->ModelBpjsRanap->getPeriksaRad($dp->no_rawat)->result();
             $biayaOperasi =  $this->ModelBpjsRanap->getOperasi($dp->no_rawat)->result();
@@ -167,7 +168,7 @@ class PasienRanapBpjs extends CI_Controller
             $returnObat =  $this->ModelBpjsRanap->getReturnObat($dp->no_rawat)->result();
             $biayaTotal = (int) $biayaLab[0]->biaya_lab + (int) $biayaRad[0]->biaya_rad + (int) $biayaOperasi[0]->total + (int) $biayaObat[0]->total_obat + (int) $biayaDokter[0]->total_dokter + $biayaDokterRalan[0]->total_dokter_ralan + (int) $biayaPerawatRalan[0]->total_perawat_ralan + (int) $biayaPerawatDokterRalan[0]->perawat_dokter + (int)  $tambahanBiaya[0]->tambahan_biaya + (int) $potonganBiaya[0]->potongan_biaya + (int) $kamarInap[0]->kamar_inap + (int) $returnObat[0]->return_obat + $getPerawatRanap[0]->total_perawat;
             $total = "Rp " . number_format($biayaTotal, 0, ',', '.');
-            $activeWorksheet->setCellValue('M' . $row, $total);
+            $activeWorksheet->setCellValue('N' . $row, $total);
             $row++;
         }
 
