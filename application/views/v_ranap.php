@@ -1,18 +1,3 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1><?= $title ?></h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= base_url('Dashboard') ?>">Home</a></li>
-                    <li class="breadcrumb-item active"><?= $title ?></li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
 <section class="content">
     <div class="container-fluid" id="konten">
         <div class="row">
@@ -42,7 +27,7 @@
                                             <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tanggal2" name="tanggal2" required>
                                         </div>
                                         <div class="btn-group">
-                                            <button class="btn btn-info btn-sm" id="tampil-111"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-info btn-sm" id="tampil-radiologi"><i class="fas fa-eye"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,32 +56,4 @@
         </div>
     </div>
 </section>
-<script>
-    $(function() {
-        $("#tanggal1, #tanggal2").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        let tabelRadiologi = $('#table-radiologi').DataTable({
-            processing: true,
-            serverSide: true,
-
-            ajax: {
-                url: "<?= base_url('RekapanRanap/RawatInap') ?>",
-                type: "POST",
-                data: function(data) {
-                    data.tanggal1 = $('#tanggal1').val();
-                    data.tanggal2 = $('#tanggal2').val();
-                },
-            }
-        })
-        $('#tampil-radiologi').on('click', function() {
-            tabelRadiologi.ajax.reload();
-        })
-    });
-</script>
+<script src="<?= base_url("Assets/js/app/ranap.js") ?>"></script>
