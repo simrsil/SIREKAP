@@ -26,4 +26,13 @@ class ModelCetakSEP extends CI_Model
         $this->db->where('bridging_sep.no_rawat', $no_rawat);
         return $this->db->get();
     }
+
+    public function getSuratKontrol($no_sep)
+    {
+        $this->db->select('bridging_surat_kontrol_bpjs.no_sep');
+        $this->db->from('bridging_surat_kontrol_bpjs');
+        $this->db->join('bridging_sep', 'bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep', 'left');
+        $this->db->where('bridging_surat_kontrol_bpjs.no_sep', $no_sep);
+        return $this->db->get();
+    }
 }

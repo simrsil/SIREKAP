@@ -27,6 +27,7 @@ class SEPRajal extends CI_Controller
         $tglSepRajal2 = $this->input->post('tglSepRajal2') ?: date('Y-m-d');
         $search = $this->input->post('search')['value'];
         $dataSEP = $this->ModelSEPRajal->getPoliklinik($tglSepRajal1, $tglSepRajal2, $search)->result();
+        $dataKunjungan = $this->ModelSEPRajal->jumlahKunjunganRajal($tglSepRajal1, $tglSepRajal2)->num_rows();
         $data = [];
         foreach ($dataSEP as $sep) {
             $row = [];
@@ -38,15 +39,17 @@ class SEPRajal extends CI_Controller
             //tambah jam kerja
             $row[] = $sep->nm_poli;
             $row[] = $sep->nm_dokter;
-            $row[] = $sep->jam_kerja;
             $row[] = $sep->jumlah_sep;
             $row[] = $sep->bpjs;
-            $row[] = $sep->umum;
             $row[] = $sep->lainnya;
+            $row[] = $sep->batal;
+            $row[] = $sep->total;
             $data[] = $row;
         }
 
-        $data_json = ['data' => $data];
+        $data_json = [
+            'data' => $data,
+        ];
 
         echo json_encode($data_json);
     }
@@ -57,12 +60,8 @@ class SEPRajal extends CI_Controller
         $tglSepRajal1 = $this->input->post('tglSepRajal1') ?: date('Y-m-d');
         $tglSepRajal2 = $this->input->post('tglSepRajal2') ?: date('Y-m-d');
         $search = $this->input->post('search')['value'];
-        // var_dump($kd_dokter);
         $getPasienSEP = $this->ModelCetakSEP->getPasien($kd_dokter, $tglSepRajal1, $tglSepRajal2, $search)->result();
-
-
         $data = [];
-
         foreach ($getPasienSEP as $getPasienSEP) {
             $row = [];
             $row[] = $getPasienSEP->no_rawat;
@@ -71,13 +70,32 @@ class SEPRajal extends CI_Controller
             $row[] = $getPasienSEP->nm_dokter;
             $row[] = $getPasienSEP->nm_poli;
             $row[] = $getPasienSEP->png_jawab;
-            $getSEP = $this->ModelCetakSEP->getSEP($getPasienSEP->no_rawat)->result();
-            if (!empty($getSEP)) {
-                foreach ($getSEP as $getSEP) {
-                    $row[] = !empty($getSEP->no_sep) ? $getSEP->no_sep : "Belum SEP";
+            $getSEP = $this->ModelCetakSEP->getSEP($getPasienSEP->no_rawat)->row();
+
+            if ($getSEP && !empty($getSEP)) {
+                $row[] = '<div class="d-flex justify-content-center align-items-center h-100">
+                            <span class="badge bg-success"><i class="fas fa-check"></i></span>
+                        </div>';
+                $getSuratKontrol = $this->ModelCetakSEP->getSuratKontrol($getSEP->no_sep)->row();
+
+                if ($getSuratKontrol && !empty($getSuratKontrol)) {
+                    $row[] = '<div class="d-flex justify-content-center align-items-center h-100">
+                    <span class="badge badge-success">
+                        <i class="fas fa-check"></i>
+                      </span>
+                      </div>';
+                } else {
+                    $row[] = '<div class="d-flex justify-content-center align-items-center h-100">
+                    <span class="badge badge-danger"><i class="fas fa-times"></i></span>
+                    </div>';
                 }
             } else {
-                $row[] = '<span class="badge badge-danger">Belum SEP</span>';
+                $row[] = '<div class="d-flex justify-content-center align-items-center h-100">
+                <span class="badge badge-danger"><i class="fas fa-times"></i></span>
+                </div>';
+                $row[] = '<div class="d-flex justify-content-center align-items-center h-100">
+                <span class="badge badge-danger"><i class="fas fa-times"></i></span>
+                </div>';
             }
 
             $data[] = $row;
