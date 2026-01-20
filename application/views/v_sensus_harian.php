@@ -1,18 +1,3 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1><?= $title ?></h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= base_url('Dashboard') ?>">Home</a></li>
-                    <li class="breadcrumb-item active"><?= $title ?></li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
 <section class="content">
     <div class="container-fluid" id="konten">
         <div class="row">
@@ -246,51 +231,4 @@
         </div>
     </div>
 </section>
-<script>
-    $(function() {
-        $("#tglKeluar1, #tglKeluar2, #tglMasuk1, #tglMasuk2").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        let tabelPasienKeluar = $('#tabel-pasien-keluar').DataTable({
-            processing: true,
-            serverSide: true,
-            paging: false,
-            ajax: {
-                url: "<?= base_url('SensusHarian/dataPasienKeluar') ?>",
-                type: "POST",
-                data: function(data) {
-                    data.tglKeluar1 = $('#tglKeluar1').val();
-                    data.tglKeluar2 = $('#tglKeluar2').val();
-                    data.waktu = $('#waktu').val();
-                },
-            }
-        })
-        $('#tampil-pasien-keluar').on('click', function() {
-            tabelPasienKeluar.ajax.reload();
-            $('#modalPxKeluar').modal('hide');
-        })
-        let tabelPasienMasuk = $('#tabel-pasien-masuk').DataTable({
-            processing: true,
-            serverSide: true,
-            paging: false,
-            ajax: {
-                url: "<?= base_url('SensusHarian/dataPasienMasuk') ?>",
-                type: "post",
-                data: function(data) {
-                    data.tglMasuk1 = $('#tglMasuk1').val();
-                    data.tglMasuk2 = $('#tglMasuk2').val();
-                },
-            }
-        })
-        $('#tampil-pasien-masuk').on('click', function() {
-            tabelPasienMasuk.ajax.reload();
-            $('#modalPxMasuk').modal('hide');
-        })
-    });
-</script>
+<script src="<?= base_url("Assets/js/app/sensus.js") ?>"></script>

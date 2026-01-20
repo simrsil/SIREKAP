@@ -18,12 +18,10 @@ class RadiologiModel extends CI_Model
             $this->db->or_like('d.nm_dokter', $search);
             $this->db->group_end();
         }
-
         if (!empty($tanggal1) && !empty($tanggal2)) {
             $this->db->where('pr.tgl_periksa >=', $tanggal1);
             $this->db->where('pr.tgl_periksa <=', $tanggal2);
         }
-
         $this->db->order_by('pr.tgl_periksa', 'DESC');
         $this->db->limit($length, $start);
         return $this->db->get();
@@ -70,6 +68,48 @@ class RadiologiModel extends CI_Model
             $this->db->where('pr.tgl_periksa <=', $tanggal2);
         }
 
+        return $this->db->get();
+    }
+    public function getJumlahRadiologiPerHari($tgl_awal, $tgl_akhir, $start, $length)
+    {
+        $this->db->select("periksa_radiologi.tgl_periksa,count(periksa_radiologi.no_rawat) as jmlPx,sum(periksa_radiologi.status = 'Ralan') as px_ralan,sum(periksa_radiologi.status = 'Ranap') as px_ranap");
+        $this->db->from("periksa_radiologi");
+        $this->db->join("jns_perawatan_radiologi", "periksa_radiologi.kd_jenis_prw=jns_perawatan_radiologi.kd_jenis_prw", "inner");
+        if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+            $this->db->where("periksa_radiologi.tgl_periksa >=", $tgl_awal);
+            $this->db->where("periksa_radiologi.tgl_periksa <=", $tgl_akhir);
+        }
+        $this->db->not_like("jns_perawatan_radiologi.nm_perawatan", "RETRIBUSI");
+        $this->db->group_by("periksa_radiologi.tgl_periksa");
+        $this->db->limit($length, $start);
+
+        return $this->db->get();
+    }
+    public function countJumlahRadiologiPerHari($tgl_awal, $tgl_akhir)
+    {
+        $this->db->select("periksa_radiologi.tgl_periksa,count(periksa_radiologi.no_rawat) as jmlPx");
+        $this->db->from("periksa_radiologi");
+        $this->db->join("jns_perawatan_radiologi", "periksa_radiologi.kd_jenis_prw=jns_perawatan_radiologi.kd_jenis_prw", "inner");
+        if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+            $this->db->where("periksa_radiologi.tgl_periksa >=", $tgl_awal);
+            $this->db->where("periksa_radiologi.tgl_periksa <=", $tgl_akhir);
+        }
+        $this->db->not_like("jns_perawatan_radiologi.nm_perawatan", "RETRIBUSI");
+        $this->db->group_by("periksa_radiologi.tgl_periksa");
+        return $this->db->get();
+    }
+
+    public function dataExportExcel($tgl_awal, $tgl_akhir)
+    {
+        $this->db->select("periksa_radiologi.tgl_periksa,count(periksa_radiologi.no_rawat) as jmlPx,sum(periksa_radiologi.status = 'Ralan') as px_ralan,sum(periksa_radiologi.status = 'Ranap') as px_ranap");
+        $this->db->from("periksa_radiologi");
+        $this->db->join("jns_perawatan_radiologi", "periksa_radiologi.kd_jenis_prw=jns_perawatan_radiologi.kd_jenis_prw", "inner");
+        if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+            $this->db->where("periksa_radiologi.tgl_periksa >=", $tgl_awal);
+            $this->db->where("periksa_radiologi.tgl_periksa <=", $tgl_akhir);
+        }
+        $this->db->not_like("jns_perawatan_radiologi.nm_perawatan", "RETRIBUSI");
+        $this->db->group_by("periksa_radiologi.tgl_periksa");
         return $this->db->get();
     }
 }
