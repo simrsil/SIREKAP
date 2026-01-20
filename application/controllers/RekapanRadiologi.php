@@ -19,8 +19,7 @@ class RekapanRadiologi extends CI_Controller
     public function index()
     {
         $data['title'] = 'Radiologi';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_rekap_radiologi');
         $this->load->view('layout/footer');
     }

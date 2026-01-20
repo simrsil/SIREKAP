@@ -85,59 +85,61 @@
       </div>
     </div>
   </div>
-  <!-- modal filter radiologi -->
-  <div class="modal fade" id="modalFilterRad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tanggal1" name="tanggal1" required>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tanggal2" name="tanggal2" required>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-info btn-sm" id="tampil-radiologi">Tampilkan</button>
-          <button class="btn btn-success btn-sm" id="exportExcelRad"><i class="far fa-file-excel"></i> Export Excel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- filter radiologi jumlah pasien per hari -->
-  <div class="modal fade" id="modalFilterRad2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tgl_awal" name="tgl_awal" required>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tgl_akhir" name="tgl_akhir" required>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-info btn-sm" id="tampil-radiologi2">Tampilkan</button>
-          <button class="btn btn-success btn-sm" id="exportExcelRad2"><i class="far fa-file-excel"></i> Export Excel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="<?= base_url("Assets/js/app/radiologi.js") ?>"></script>
 </section>
+<!-- modal filter radiologi -->
+<div class="modal fade" id="modalFilterRad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tanggal1" name="tanggal1" required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tanggal2" name="tanggal2" required>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-info btn-sm" id="tampil-radiologi">Tampilkan</button>
+        <button class="btn btn-success btn-sm" id="exportExcelRad"><i class="far fa-file-excel"></i> Export Excel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- filter radiologi jumlah pasien per hari -->
+<div class="modal fade" id="modalFilterRad2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tgl_awal" name="tgl_awal" required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control form-control-sm" placeholder="Pilih Tanggal" id="tgl_akhir" name="tgl_akhir" required>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-info btn-sm" id="tampil-radiologi2">Tampilkan</button>
+        <button class="btn btn-success btn-sm" id="exportExcelRad2"><i class="far fa-file-excel"></i> Export Excel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="<?= base_url("Assets/js/app/radiologi.js") ?>"></script>
