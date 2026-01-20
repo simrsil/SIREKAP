@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<?= base_url('Assets/') ?>plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 </head>
 
-<body class="hold-transition layout-top-nav">
+<body class="hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container-fluid">
@@ -42,9 +42,9 @@
                                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">BPJS</a>
                                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                                         <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Laporan Mbak Feniya</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Monitoring Bridging</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Task ID</a>
+                                            <a tabindex="-1" href="#" class="dropdown-item">Pasien Ranap BPJS</a>
+                                            <a tabindex="-1" href="<?= base_url('ApiBpjs') ?>" class="dropdown-item">Monitoring Bridging</a>
+                                            <a tabindex="-1" href="<?= base_url('RekapanTaskID') ?>" class="dropdown-item">Task ID</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -52,10 +52,10 @@
                                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">PPI</a>
                                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                                         <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Audit APD</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Cuci Tangan</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Dekubitus</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Surveilance Operasi</a>
+                                            <a tabindex="-1" href="<?= base_url('rekapanAuditAPD') ?>" class="dropdown-item">Audit APD</a>
+                                            <a tabindex="-1" href="<?= base_url('rekapanCuciTangan') ?>" class="dropdown-item">Cuci Tangan</a>
+                                            <a tabindex="-1" href="<?= base_url('RekapanDekubitus') ?>" class="dropdown-item">Dekubitus</a>
+                                            <a tabindex="-1" href="<?= base_url('RekapanSurveilanceOperasi1') ?>" class="dropdown-item">Surveilance Operasi</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -63,12 +63,12 @@
                                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Rekam Medis</a>
                                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                                         <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Demografi</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Diagnosa</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Jumlah Pasien Per-Dokter</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Sensus Harian Pasien</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Status Rekam Medis</a>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Rujukan Pasien</a>
+                                            <a tabindex="-1" href="<?= base_url('DemografiRegistrasi') ?>" class="dropdown-item">Demografi</a>
+                                            <a tabindex="-1" href="<?= base_url('DiagnosaPasienPerUmur') ?>" class="dropdown-item">Diagnosa</a>
+                                            <a tabindex="-1" href="<?= base_url('LaporanPasien') ?>" class="dropdown-item">Jumlah Pasien Per-Dokter</a>
+                                            <a tabindex="-1" href="<?= base_url('SensusHarian') ?>" class="dropdown-item">Sensus Harian Pasien</a>
+                                            <a tabindex="-1" href="<?= base_url('StatusRM') ?>" class="dropdown-item">Status Rekam Medis</a>
+                                            <a tabindex="-1" href="<?= base_url('RekapRujukan') ?>" class="dropdown-item">Rujukan Pasien</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -77,33 +77,33 @@
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">IGD/UGD</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="#" class="dropdown-item">Indikator Triase</a></li>
-                                <li><a href="#" class="dropdown-item">Pasien IGD</a></li>
+                                <li><a href="<?= base_url('RekapIGDJumlahPasien') ?>" class="dropdown-item">Indikator Triase</a></li>
+                                <li><a href="<?= base_url('RekapIGD') ?>" class="dropdown-item">Pasien IGD</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laborat</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="#" class="dropdown-item">Data Pemeriksaan</a></li>
+                                <li><a href="<?= base_url('PeriksaLab') ?>" class="dropdown-item">Data Pemeriksaan</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Radiologi</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="#" class="dropdown-item">Data Radiologi</a></li>
+                                <li><a href="<?= base_url('rekapanRadiologi') ?>" class="dropdown-item">Data Radiologi</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Farmasi</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="#" class="dropdown-item">Obat Per-Dokter Ranap</a></li>
+                                <li><a href="<?= base_url('ObatPerDokter') ?>" class="dropdown-item">Obat Per-Dokter Ranap</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Rawat Inap</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="#" class="dropdown-item">Kamar Inap</a></li>
-                                <li><a href="#" class="dropdown-item">Pasien Inap</a></li>
+                                <li><a href="<?= base_url('RekapanRanap') ?>" class="dropdown-item">Kamar Inap</a></li>
+                                <li><a href="<?= base_url('RekapanRanapKamar') ?>" class="dropdown-item">Pasien Inap</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

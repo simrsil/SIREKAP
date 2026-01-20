@@ -15,8 +15,9 @@ class ApiBpjs extends CI_Controller
     public function index()
     {
         $data['title'] = 'Get Peserta BPJS';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
+        // $this->load->view('layout/header', $data);
+        //$this->load->view('layout/sidebar');
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_get_peserta_bpjs');
         $this->load->view('layout/footer');
     }

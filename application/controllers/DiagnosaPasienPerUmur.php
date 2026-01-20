@@ -14,8 +14,7 @@ class DiagnosaPasienPerUmur extends CI_Controller
     public function index()
     {
         $data['title'] = 'Diagnosa Per Umur';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_diagnosa_per_umur');
         $this->load->view('layout/footer');
     }

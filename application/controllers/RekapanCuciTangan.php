@@ -19,9 +19,8 @@ class RekapanCuciTangan extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Audit Cuci Tangan';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
-        $this->load->view('v_bulanan_cuci_tangan');
+        $this->load->view('layout/top-nav', $data);
+        $this->load->view('v_bulanan_cuci_tangan', $data);
         $this->load->view('layout/footer');
     }
 

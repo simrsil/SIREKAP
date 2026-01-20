@@ -14,8 +14,7 @@ class RekapRujukan extends CI_Controller
     public function index()
     {
         $data['title'] = 'Rujukan Pasien';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_rujukan');
         $this->load->view('layout/footer');
     }

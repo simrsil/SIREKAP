@@ -20,8 +20,7 @@ class PeriksaLab  extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Periksa Laboratorium';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_periksa_lab');
         $this->load->view('layout/footer');
     }

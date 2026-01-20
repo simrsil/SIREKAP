@@ -18,8 +18,7 @@ class RekapanSurveilanceOperasi1 extends CI_Controller
     public function index()
     {
         $data['title'] = 'Surveilance Infeksi Luka Operasi';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_rekap_surveilance_operasi');
         $this->load->view('layout/footer');
     }

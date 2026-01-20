@@ -22,8 +22,7 @@ class DemografiRegistrasi extends CI_Controller
     public function index()
     {
         $data['title'] = 'Demografi Registrasi';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_demografi_registrasi');
         $this->load->view('layout/footer');
     }

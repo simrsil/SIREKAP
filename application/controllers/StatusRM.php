@@ -20,8 +20,7 @@ class StatusRM extends CI_Controller
     public function index()
     {
         $data['title'] = 'Status Rekam Medis';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_status_rm');
         $this->load->view('layout/footer');
     }
