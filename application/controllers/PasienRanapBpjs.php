@@ -17,8 +17,7 @@ class PasienRanapBpjs extends CI_Controller
     }
     public function index() {
         $data['title'] = 'Pasien Ranap BPJS';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_pasien_bpjs_ranap');
         $this->load->view('layout/footer');
     }
