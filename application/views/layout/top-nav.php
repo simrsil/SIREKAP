@@ -42,7 +42,7 @@
                                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">BPJS</a>
                                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                                         <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item">Pasien Ranap BPJS</a>
+                                            <a tabindex="-1" href="<?= base_url('PasienRanapBpjs') ?>" class="dropdown-item">Pasien Ranap BPJS</a>
                                             <a tabindex="-1" href="<?= base_url('ApiBpjs') ?>" class="dropdown-item">Monitoring Bridging</a>
                                             <a tabindex="-1" href="<?= base_url('RekapanTaskID') ?>" class="dropdown-item">Task ID</a>
                                         </li>
