@@ -1,18 +1,3 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1><?= $title ?></h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= base_url('Dashboard') ?>">Home</a></li>
-                    <li class="breadcrumb-item active"><?= $title ?></li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
 <section class="content">
     <div class="container-fluid" id="konten">
         <div class="row">
@@ -114,55 +99,4 @@
         </div>
     </div>
 </section>
-<script>
-    $('#button-export-excel').on('click', function() {
-        exportExcel();
-        $('#modalPLab').modal('hide');
-    });
-
-    let dataPeriksalab = $('#tabel-periksa-lab').DataTable({
-        processing: true,
-        serverSide: true,
-        orderable: false,
-        searching: false,
-        ajax: {
-            url: "<?= base_url('PeriksaLab/dataPeriksaLab') ?>",
-            type: "POST",
-            data: function(data) {
-                data.tahun4 = $('#tahun4').val();
-                data.bulan4 = $('#bulan4').val();
-            },
-        }
-    })
-    $('#tampil-periksa-lab').on('click', function() {
-        $('#modalPLab').modal('hide');
-        dataPeriksalab.ajax.reload();
-    });
-
-    function exportExcel() {
-        let tahun4 = $('#tahun4').val();
-        let bulan4 = $('#bulan4').val();
-        if (tahun4 == '' && bulan4 == '') {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                iconColor: 'white',
-                customClass: {
-                    popup: 'colored-toast',
-                },
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true,
-                background: '#17a2b8', // Warna latar belakang (green)
-                color: 'white'
-            });
-            Toast.fire({
-                icon: 'error',
-                title: 'Tanggal Harus di Isi',
-            })
-        } else {
-            let url = window.location.href = '<?= base_url('PeriksaLab/export_excel/') ?>' + tahun4 + '/' + bulan4;
-        }
-
-    }
-</script>
+<script src="<?= base_url("Assets/js/app/lab.js") ?>"></script>
