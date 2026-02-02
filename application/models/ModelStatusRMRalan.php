@@ -3,7 +3,7 @@ class ModelStatusRMRalan extends CI_Model
 {
     public function getPasienRalan($tgl_awal, $tgl_akhir, $status_ralan, $start, $length, $search = "")
     {
-        $this->db->select('reg_periksa.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,poliklinik.nm_poli,reg_periksa.tgl_registrasi,dokter.nm_dokter,reg_periksa.status_lanjut');
+        $this->db->select('reg_periksa.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,poliklinik.nm_poli,reg_periksa.tgl_registrasi,dokter.nm_dokter,reg_periksa.status_lanjut,reg_periksa.stts');
         $this->db->from('reg_periksa');
         $this->db->join('pasien', 'reg_periksa.no_rkm_medis=pasien.no_rkm_medis', 'inner');
         $this->db->join('poliklinik', 'reg_periksa.kd_poli=poliklinik.kd_poli', 'inner');
@@ -97,9 +97,16 @@ class ModelStatusRMRalan extends CI_Model
         return $this->db->get();
     }
 
+    public function getCaraDaftar($no_rawat)
+    {
+        $this->db->select('if(count(referensi_mobilejkn_bpjs.no_rawat)> 0,"JKN","Onsite") as cara_daftar');
+        $this->db->from('referensi_mobilejkn_bpjs');
+        $this->db->where('referensi_mobilejkn_bpjs.no_rawat', $no_rawat);
+        return $this->db->get();
+    }
     public function exportExcel($tgl_awal, $tgl_akhir, $status_ralan)
     {
-        $this->db->select('reg_periksa.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,poliklinik.nm_poli,reg_periksa.tgl_registrasi,dokter.nm_dokter,reg_periksa.status_lanjut');
+        $this->db->select('reg_periksa.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,poliklinik.nm_poli,reg_periksa.tgl_registrasi,dokter.nm_dokter,reg_periksa.status_lanjut,reg_periksa.stts');
         $this->db->from('reg_periksa');
         $this->db->join('pasien', 'reg_periksa.no_rkm_medis=pasien.no_rkm_medis', 'inner');
         $this->db->join('poliklinik', 'reg_periksa.kd_poli=poliklinik.kd_poli', 'inner');

@@ -43,6 +43,7 @@ class StatusRM extends CI_Controller
             $resume = $this->ModelStatusRMRalan->resumeRalan($px->no_rawat)->result();
             $dataIcd9 = $this->ModelStatusRMRalan->getICD9($px->no_rawat)->result();
             $dataIcd10 = $this->ModelStatusRMRalan->getIcd10($px->no_rawat)->result();
+            $caraDaftar = $this->ModelStatusRMRalan->getCaraDaftar($px->no_rawat)->result();
             $row = [];
             $row[] = $px->no_rawat;
             $row[] = $px->tgl_registrasi;
@@ -54,6 +55,8 @@ class StatusRM extends CI_Controller
             $row[] = $resume[0]->resume;
             $row[] = $dataIcd9[0]->icd9;
             $row[] = $dataIcd10[0]->icd10;
+            $row[] = $caraDaftar[0]->cara_daftar;
+            $row[] = $px->stts;
 
             $data[] = $row;
         }
@@ -93,7 +96,9 @@ class StatusRM extends CI_Controller
             'SOAPIE',
             'Resume',
             'ICD9',
-            'ICD10'
+            'ICD10',
+            'Cara Daftar',
+            'Status'
         ], null, 'A1');
 
         $row = 2;
@@ -125,6 +130,12 @@ class StatusRM extends CI_Controller
             $icd10 = $this->ModelStatusRMRalan->getIcd10($px->no_rawat)->row();
             $icd10Status = ($icd10 && $icd10->icd10 == 'Ada') ? 'Ada' : 'Tidak Ada';
             $sheet->setCellValue('J' . $row, $icd10Status);
+            // Cara Daftar
+            $caraDaftar = $this->ModelStatusRMRalan->getCaraDaftar($px->no_rawat)->row();
+            $caraDaftar2 = ($caraDaftar && $caraDaftar->cara_daftar == 'JKN') ? 'JKN' : 'Onsite';
+            $sheet->setCellValue('K' . $row, $caraDaftar2);
+            // Status daftar
+            $sheet->setCellValue('L' . $row, $px->stts);
 
             $row++;
         }

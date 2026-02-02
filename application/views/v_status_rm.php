@@ -43,6 +43,8 @@
                                             <th scope="col">Resume</th>
                                             <th scope="col">ICD 9</th>
                                             <th scope="col">ICD 10</th>
+                                            <th scope="col">Cara Daftar</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                 </table>
