@@ -55,10 +55,7 @@ class StatusRM extends CI_Controller
             $row[] = $resume[0]->resume;
             $row[] = $dataIcd9[0]->icd9;
             $row[] = $dataIcd10[0]->icd10;
-<<<<<<< HEAD
-=======
             $row[] = $px->png_jawab;
->>>>>>> fikalovita
             $row[] = $caraDaftar[0]->cara_daftar;
             $row[] = $px->stts;
 
@@ -101,10 +98,7 @@ class StatusRM extends CI_Controller
             'Resume',
             'ICD9',
             'ICD10',
-<<<<<<< HEAD
-=======
             'Cara Bayar',
->>>>>>> fikalovita
             'Cara Daftar',
             'Status'
         ], null, 'A1');
@@ -138,14 +132,6 @@ class StatusRM extends CI_Controller
             $icd10 = $this->ModelStatusRMRalan->getIcd10($px->no_rawat)->row();
             $icd10Status = ($icd10 && $icd10->icd10 == 'Ada') ? 'Ada' : 'Tidak Ada';
             $sheet->setCellValue('J' . $row, $icd10Status);
-<<<<<<< HEAD
-            // Cara Daftar
-            $caraDaftar = $this->ModelStatusRMRalan->getCaraDaftar($px->no_rawat)->row();
-            $caraDaftar2 = ($caraDaftar && $caraDaftar->cara_daftar == 'JKN') ? 'JKN' : 'Onsite';
-            $sheet->setCellValue('K' . $row, $caraDaftar2);
-            // Status daftar
-            $sheet->setCellValue('L' . $row, $px->stts);
-=======
             //cara bayar
             $sheet->setCellValue('K' . $row, $px->png_jawab);
             // Cara Daftar
@@ -154,7 +140,6 @@ class StatusRM extends CI_Controller
             $sheet->setCellValue('L' . $row, $caraDaftar2);
             // Status daftar
             $sheet->setCellValue('M' . $row, $px->stts);
->>>>>>> fikalovita
 
             $row++;
         }
