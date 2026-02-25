@@ -14,9 +14,8 @@ class SEPRajal extends CI_Controller
     }
     public function index()
     {
-        $data['title'] = 'Data SEP Rawat Jalan';
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar');
+        $data['title'] = 'Pasien Rawat Jalan';
+        $this->load->view('layout/top-nav', $data);
         $this->load->view('v_sep_rajal');
         $this->load->view('layout/footer');
     }

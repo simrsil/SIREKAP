@@ -1,3 +1,18 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><?= $title ?></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= base_url('Dashboard') ?>">Home</a></li>
+                    <li class="breadcrumb-item active"><?= $title ?></li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 <section class="content">
     <div class="container-fluid" id="konten">
         <div class="row">
@@ -5,7 +20,6 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        Data SEP Rawat Jalan
                         <div class="card-tools">
                             <button type="button" class="btn btn-warning" id="refresh-sep-rajal">
                                 <i class="fas fa-sync-alt"></i>
