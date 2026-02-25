@@ -107,7 +107,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Dashboard') ?>" class="nav-link">Rawat Jalan</a>
+                            <a href="<?= base_url('SEPRajal') ?>" class="nav-link">Rawat Jalan</a>
                         </li>
                     </ul>
                     <!-- <form class="form-inline ml-0 ml-md-3">
