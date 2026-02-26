@@ -85,6 +85,117 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        Kamar Inap
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-lg table-sm table-bordered" id="tabel-ranap">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama Kamar</th>
+                                    <th scope="col">Jumlah Kamar</th>
+                                    <th scope="col">Isi</th>
+                                    <th scope="col">Kosong</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($statusKamar as $sk): ?>
+                                    <tr>
+                                        <td><?= $sk->nama_group ?></td>
+                                        <td><?= $sk->jumlah_kmr ?></td>
+                                        <td><?= $sk->kmr_isi ?></td>
+                                        <td><?= $sk->kmr_kosong ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        Poliklinik
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-lg table-sm table-bordered" id="tabel-poli">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama Poliklinik</th>
+                                    <th scope="col">Nama Dokter</th>
+                                    <th scope="col">Jumlah Pasien</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($pasienPoli as $px): ?>
+                                    <tr>
+                                        <td><?= str_ireplace(['Poliklinik ', 'Poli '], '', $px->nm_poli) ?></td>
+                                        <td><?= mb_strimwidth($px->nm_dokter, 0, 15, '...') ?></td>
+                                        <td><?= $px->jumlah ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        Poliklinik
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-lg table-sm table-bordered" id="tabel-bayar">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama Poliklinik</th>
+                                    <th scope="col">Nama Dokter</th>
+                                    <th scope="col">Jenis Bayar</th>
+                                    <th scope="col">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($caraBayar as $cb): ?>
+                                    <tr>
+                                        <td><?= $cb->nm_poli ?></td>
+                                        <td><?= $cb->nm_dokter ?></td>
+                                        <td><?= $cb->png_jawab ?></td>
+                                        <td><?= $cb->jns_bayar ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -183,4 +294,10 @@
             });
         });
     }
+</script>
+
+<script>
+    $('#tabel-ranap').DataTable();
+    $('#tabel-poli').DataTable();
+    $('#tabel-bayar').DataTable();
 </script>

@@ -20,7 +20,7 @@ class Dashboard extends CI_Controller
 
 		//$data = $this->Dashboard_Model->jkn($periode);
 
-		//$data['pasienPoli'] = $this->Dashboard_Model->pasienPoliklinik()->result();
+		$data['pasienPoli'] = $this->Dashboard_Model->pasienPoliklinik()->result();
 		// $data['jkn_total'] = $this->Dashboard_Model->jkn_total($periode);
 		// $data['jkn_checkin'] = $this->Dashboard_Model->jkn_checkin($periode);
 		// $data['jkn_belum'] = $this->Dashboard_Model->jkn_belum($periode);

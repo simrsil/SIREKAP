@@ -103,7 +103,7 @@
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Rawat Inap</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 <li><a href="<?= base_url('RekapanRanap') ?>" class="dropdown-item">Kamar Inap</a></li>
-                                <li><a href="<?= base_url('RekapanRanapKamar') ?>" class="dropdown-item">Pasien Inap</a></li>
+                                <li><a href="<?= base_url('RekapanRanapKamar') ?>" class="dropdown-item">Hitung Bor</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
