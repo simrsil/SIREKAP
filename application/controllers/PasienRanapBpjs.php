@@ -15,14 +15,16 @@ class PasienRanapBpjs extends CI_Controller
             redirect('Auth');
         }
     }
-    public function index() {
+    public function index()
+    {
         $data['title'] = 'Pasien Ranap BPJS';
         $this->load->view('layout/top-nav', $data);
         $this->load->view('v_pasien_bpjs_ranap');
         $this->load->view('layout/footer');
     }
 
-    public function dataPasienBpjs()  {
+    public function dataPasienBpjs()
+    {
         $tanggal1 = $this->input->post('tanggal1') ?: date('Y-m-d');
         $tanggal2 = $this->input->post('tanggal2') ?: date('Y-m-d');
         $start = $this->input->post('start');
@@ -39,7 +41,7 @@ class PasienRanapBpjs extends CI_Controller
 
             if (!empty($dpb->peserta)) {
                 $kelasBpjs = 'Kelas ' . $dpb->klsrawat . ', ' . $dpb->peserta;
-            }else{
+            } else {
                 $kelasBpjs = '';
             }
 
@@ -55,32 +57,33 @@ class PasienRanapBpjs extends CI_Controller
                 $row[] = $dk->kamar;
                 $row[] = $dk->tgl_masuk_awal;
                 $row[] = $dk->tgl_keluar_akhir;
-                if (substr($dk->tgl_keluar_akhir,0,10) != '0000-00-00') {
+                if (substr($dk->tgl_keluar_akhir, 0, 10) != '0000-00-00') {
                     $tglKeluar = new DateTime(substr($dk->tgl_keluar_akhir, 0, 10));
-                }else{
+                } else {
                     $tglKeluar = new DateTime((date('Y-m-d')));
                 }
                 $tglMasuk =  new DateTime(substr($dk->tgl_masuk_awal, 0, 10));
-                $row[] =$tglKeluar->diff($tglMasuk)->days + 1;
-                
+                $row[] = $tglKeluar->diff($tglMasuk)->days + 1;
             }
+            $soapi = $this->ModelBpjsRanap->getPenilaianSoapi($dpb->no_rawat)->row();
+            $row[] = $soapi ? $soapi->penilaian : '';
             $row[] = $dpb->nm_dokter;
             $biayaLab =  $this->ModelBpjsRanap->getPeriksaLab($dpb->no_rawat)->result();
             $biayaRad =  $this->ModelBpjsRanap->getPeriksaRad($dpb->no_rawat)->result();
             $biayaOperasi =  $this->ModelBpjsRanap->getOperasi($dpb->no_rawat)->result();
             $biayaObat =  $this->ModelBpjsRanap->getObat($dpb->no_rawat)->result();
-            $biayaDokter=  $this->ModelBpjsRanap->getDokterRanap($dpb->no_rawat)->result();
-            $getPerawatRanap=  $this->ModelBpjsRanap->getPerawatRanap($dpb->no_rawat)->result();
-            $biayaDokterRalan=  $this->ModelBpjsRanap->getDokterRalan($dpb->no_rawat)->result();
-            $biayaPerawatRalan=  $this->ModelBpjsRanap->getPerawatRalan($dpb->no_rawat)->result();
-            $biayaPerawatDokterRalan=  $this->ModelBpjsRanap->getPerawatDokterRalan($dpb->no_rawat)->result();
-            $tambahanBiaya=  $this->ModelBpjsRanap->getTambahanBiaya($dpb->no_rawat)->result();
-            $potonganBiaya=  $this->ModelBpjsRanap->getPotonganBiaya($dpb->no_rawat)->result();
-            $kamarInap=  $this->ModelBpjsRanap->getKamarInap($dpb->no_rawat)->result();
-            $returnObat=  $this->ModelBpjsRanap->getReturnObat($dpb->no_rawat)->result();
-            $biayaTotal = (int) $biayaLab[0]->biaya_lab + (int) $biayaRad[0]->biaya_rad + (int) $biayaOperasi[0]->total + (int) $biayaObat[0]->total_obat + (int) $biayaDokter[0]->total_dokter + $biayaDokterRalan[0]->total_dokter_ralan+ (int) $biayaPerawatRalan[0]->total_perawat_ralan+ (int) $biayaPerawatDokterRalan[0]->perawat_dokter+(int)  $tambahanBiaya[0]->tambahan_biaya + (int) $potonganBiaya[0]->potongan_biaya+(int) $kamarInap[0]->kamar_inap+(int) $returnObat[0]->return_obat + $getPerawatRanap[0]->total_perawat;
+            $biayaDokter =  $this->ModelBpjsRanap->getDokterRanap($dpb->no_rawat)->result();
+            $getPerawatRanap =  $this->ModelBpjsRanap->getPerawatRanap($dpb->no_rawat)->result();
+            $biayaDokterRalan =  $this->ModelBpjsRanap->getDokterRalan($dpb->no_rawat)->result();
+            $biayaPerawatRalan =  $this->ModelBpjsRanap->getPerawatRalan($dpb->no_rawat)->result();
+            $biayaPerawatDokterRalan =  $this->ModelBpjsRanap->getPerawatDokterRalan($dpb->no_rawat)->result();
+            $tambahanBiaya =  $this->ModelBpjsRanap->getTambahanBiaya($dpb->no_rawat)->result();
+            $potonganBiaya =  $this->ModelBpjsRanap->getPotonganBiaya($dpb->no_rawat)->result();
+            $kamarInap =  $this->ModelBpjsRanap->getKamarInap($dpb->no_rawat)->result();
+            $returnObat =  $this->ModelBpjsRanap->getReturnObat($dpb->no_rawat)->result();
+            $biayaTotal = (int) $biayaLab[0]->biaya_lab + (int) $biayaRad[0]->biaya_rad + (int) $biayaOperasi[0]->total + (int) $biayaObat[0]->total_obat + (int) $biayaDokter[0]->total_dokter + $biayaDokterRalan[0]->total_dokter_ralan + (int) $biayaPerawatRalan[0]->total_perawat_ralan + (int) $biayaPerawatDokterRalan[0]->perawat_dokter + (int)  $tambahanBiaya[0]->tambahan_biaya + (int) $potonganBiaya[0]->potongan_biaya + (int) $kamarInap[0]->kamar_inap + (int) $returnObat[0]->return_obat + $getPerawatRanap[0]->total_perawat;
             $row[] = "Rp " . number_format($biayaTotal, 0, ',', '.');
-             
+
             // var_dump($biayaObat);
 
             $data[] = $row;
@@ -95,12 +98,13 @@ class PasienRanapBpjs extends CI_Controller
         echo json_encode($data_json);
     }
 
-    public function export_excel($tanggal1, $tanggal2){
- 
+    public function export_excel($tanggal1, $tanggal2)
+    {
+
         $dataPasien = $this->ModelBpjsRanap->exportGetPasien($tanggal1, $tanggal2)->result();
-        
+
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Pasien_Ranap_BPJS_'.$tanggal1.'_'. $tanggal2.'.xlsx"');
+        header('Content-Disposition: attachment;filename="Pasien_Ranap_BPJS_' . $tanggal1 . '_' . $tanggal2 . '.xlsx"');
         header('Cache-Control: max-age=0');
 
         $spreadsheet = new Spreadsheet();
@@ -117,7 +121,7 @@ class PasienRanapBpjs extends CI_Controller
         $activeWorksheet->setCellValue('I1', 'KRS');
         $activeWorksheet->setCellValue('J1', 'LOS');
         $activeWorksheet->setCellValue('K1', 'Dokter');
-        $activeWorksheet->setCellValue('L1', 'Diagnosa');
+        $activeWorksheet->setCellValue('L1', 'Diagnosa Terakhir');
         $activeWorksheet->setCellValue('M1', 'INA BPJS');
         $activeWorksheet->setCellValue('N1', 'Real Cost');
         $activeWorksheet->setCellValue('O1', 'Selisih');
@@ -151,8 +155,10 @@ class PasienRanapBpjs extends CI_Controller
                 $los = $tglKeluar->diff($tglMasuk)->days + 1;
                 $activeWorksheet->setCellValue('J' . $row, $los);
             }
-
+            $soapi = $this->ModelBpjsRanap->getPenilaianSoapi($dp->no_rawat)->row();
+            //$row[] = $soapi ? $soapi->penilaian : '';
             $activeWorksheet->setCellValue('K' . $row, $dp->nm_dokter);
+            $activeWorksheet->setCellValue('L' . $row, $soapi ? $soapi->penilaian : '');
             $biayaLab =  $this->ModelBpjsRanap->getPeriksaLab($dp->no_rawat)->result();
             $biayaRad =  $this->ModelBpjsRanap->getPeriksaRad($dp->no_rawat)->result();
             $biayaOperasi =  $this->ModelBpjsRanap->getOperasi($dp->no_rawat)->result();
@@ -176,5 +182,4 @@ class PasienRanapBpjs extends CI_Controller
         $writer->save('php://output');
         exit();
     }
-
 }

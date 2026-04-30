@@ -41,13 +41,14 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Nama Pasien</th>
                                     <th scope="col">No.RM</th>
-                                    <th scope="col">Kelas SEP</th>
-                                    <th scope="col">Tgl SEP</th>
-                                    <th scope="col">Jenis Pembayaran</th>
+                                    <th scope="col">Kls. SEP</th>
+                                    <th scope="col">Tgl. SEP</th>
+                                    <th scope="col">Jns Bayar</th>
                                     <th scope="col">Ruang</th>
                                     <th scope="col">MRS</th>
                                     <th scope="col">KRS</th>
                                     <th scope="col">LOS</th>
+                                    <th scope="col">Penilaian Terakhir</th>
                                     <th scope="col">DPJP</th>
                                     <th scope="col">Real Cost</th>
                                 </tr>
