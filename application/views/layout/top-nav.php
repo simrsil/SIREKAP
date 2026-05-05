@@ -44,6 +44,7 @@
                                         <li>
                                             <a tabindex="-1" href="<?= base_url('PasienRanapBpjs') ?>" class="dropdown-item">Pasien Ranap BPJS</a>
                                             <a tabindex="-1" href="<?= base_url('ApiBpjs') ?>" class="dropdown-item">Monitoring Bridging</a>
+                                            <a tabindex="-1" href="<?= base_url('MonitoringJKN') ?>" class="dropdown-item">Monitoring JKN</a>
                                             <a tabindex="-1" href="<?= base_url('RekapanTaskID') ?>" class="dropdown-item">Task ID</a>
                                         </li>
                                     </ul>
