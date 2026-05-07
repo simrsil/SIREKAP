@@ -29,7 +29,7 @@ let tabelMonitoringJKN = $('#table-monitoring-jkn').DataTable({
         { data: 1, title: 'Nama Dokter' },
         { data: 2, title: 'Poliklinik' },
         { data: 3, title: 'JKN' },
-        { data: 4, title: 'Non JKN' },
+        { data: 4, title: 'On Site' },
         { data: 5, title: 'Total' },
     ]
 });

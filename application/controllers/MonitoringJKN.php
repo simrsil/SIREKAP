@@ -90,7 +90,7 @@ class MonitoringJKN extends CI_Controller
         $activeWorksheet->setCellValue('B1', 'Nama Dokter');
         $activeWorksheet->setCellValue('C1', 'Poliklinik');
         $activeWorksheet->setCellValue('D1', 'JKN');
-        $activeWorksheet->setCellValue('E1', 'Non JKN');
+        $activeWorksheet->setCellValue('E1', 'On Site');
         $activeWorksheet->setCellValue('F1', 'Total');
 
         $row = 2;

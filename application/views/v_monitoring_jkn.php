@@ -42,7 +42,7 @@
                                     <th scope="col">Nama Dokter</th>
                                     <th scope="col">Poliklinik</th>
                                     <th scope="col">JKN</th>
-                                    <th scope="col">Non JKN</th>
+                                    <th scope="col">On Site</th>
                                     <th scope="col">Total</th>
                                 </tr>
                             </thead>

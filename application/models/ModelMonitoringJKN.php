@@ -70,6 +70,8 @@ class ModelMonitoringJKN extends CI_Model
     $this->db->from('referensi_mobilejkn_bpjs rmb');
     $this->db->where('rmb.kodepoli', $kd_poli);
     $this->db->where('rmb.kodedokter', $kd_dokter);
+    $this->db->where('rmb.status <>', 'Gagal');
+    $this->db->where('rmb.status <>', 'Batal');
 
     if (!empty($tanggalawal) && !empty($tanggalakhir)) {
       $this->db->where('rmb.tanggalperiksa >=', $tanggalawal);
@@ -94,6 +96,7 @@ class ModelMonitoringJKN extends CI_Model
 
     $this->db->where('rp.status_lanjut', 'Ralan');
     $this->db->where('rp.kd_pj', 'BPJ');
+
     $this->db->limit(1);
 
     return $this->db->get();
