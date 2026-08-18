@@ -24,6 +24,7 @@ class ModelMonitoringJKN extends CI_Model
     }
     $this->db->where('rp.kd_pj', 'BPJ');
     $this->db->where('rp.status_lanjut', 'Ralan');
+    $this->db->where_not_in('rp.kd_poli', ['IGDK', 'U0011', 'U0009', 'U0008', 'U0023', 'U0017']);
     $this->db->group_by('d.kd_dokter, p.kd_poli');
   }
 
@@ -92,8 +93,19 @@ class ModelMonitoringJKN extends CI_Model
     if (!empty($tanggalawal) && !empty($tanggalakhir)) {
       $this->db->where('rp.tgl_registrasi >=', $tanggalawal);
       $this->db->where('rp.tgl_registrasi <=', $tanggalakhir);
+
+      $this->db->where(
+        "rp.no_rawat NOT IN (
+                SELECT referensi_mobilejkn_bpjs.no_rawat 
+                FROM referensi_mobilejkn_bpjs 
+                WHERE referensi_mobilejkn_bpjs.tanggalperiksa BETWEEN '$tanggalawal' AND '$tanggalakhir'
+            )",
+        NULL,
+        FALSE
+      );
     }
 
+    $this->db->where('rp.stts <>', 'Batal');
     $this->db->where('rp.status_lanjut', 'Ralan');
     $this->db->where('rp.kd_pj', 'BPJ');
 
@@ -116,7 +128,30 @@ class ModelMonitoringJKN extends CI_Model
 
     $this->db->where('rp.status_lanjut', 'Ralan');
     $this->db->where('rp.kd_pj', 'BPJ');
+    $this->db->where_not_in('rp.kd_poli', ['IGDK', 'U0011', 'U0009', 'U0008', 'U0023', 'U0017']);
     $this->db->group_by('d.kd_dokter, p.kd_poli');
+
+    return $this->db->get();
+  }
+
+  public function SEPTercetak($kd_dokter, $kd_poli, $tanggalawal, $tanggalakhir)
+  {
+    $this->db->select('COUNT(bs.no_sep) as totalseptercetak');
+    $this->db->from('reg_periksa rp');
+    $this->db->join('bridging_sep bs', 'rp.no_rawat = bs.no_rawat', 'left');
+
+    if (!empty($tanggalawal) && !empty($tanggalakhir)) {
+      $this->db->where('rp.tgl_registrasi >=', $tanggalawal);
+      $this->db->where('rp.tgl_registrasi <=', $tanggalakhir);
+    }
+
+    $this->db->where('rp.kd_dokter', $kd_dokter);
+    $this->db->where('rp.kd_poli', $kd_poli);
+    $this->db->where('rp.stts <>', 'Batal');
+    $this->db->where('rp.status_lanjut', 'Ralan');
+    $this->db->where('rp.kd_pj', 'BPJ');
+
+    $this->db->limit(1);
 
     return $this->db->get();
   }

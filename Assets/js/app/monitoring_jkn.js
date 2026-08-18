@@ -16,6 +16,7 @@ $(function () {
 let tabelMonitoringJKN = $('#table-monitoring-jkn').DataTable({
     processing: true,
     serverSide: true,
+    pageLength: 50,
     ajax: {
         url: 'MonitoringJKN/dataDokterPoli',
         type: "POST",
@@ -30,8 +31,44 @@ let tabelMonitoringJKN = $('#table-monitoring-jkn').DataTable({
         { data: 2, title: 'Poliklinik' },
         { data: 3, title: 'JKN' },
         { data: 4, title: 'On Site' },
-        { data: 5, title: 'Total' },
-    ]
+        { data: 5, title: 'SEP Cetak' },
+        { data: 6, title: 'Total' },
+    ],
+
+    footerCallback: function (row, data, start, end, display) {
+
+        let api = this.api();
+
+        let totalJKN = 0;
+        let totalOnsite = 0;
+        let totalSep = 0;
+        let totalSemua = 0;
+
+        data.forEach(function (row) {
+            totalJKN += parseInt(row[3]) || 0;
+            totalOnsite += parseInt(row[4]) || 0;
+            totalSep += parseInt(row[5]) || 0;
+            totalSemua += parseInt(row[6]) || 0;
+        });
+
+        $('#total-jkn').text(totalJKN);
+        $('#total-onsite').text(totalOnsite);
+        $('#total-sep').text(totalSep);
+        $('#total-semua').text(totalSemua);
+
+        // Persentase JKN
+    let persentaseJKN = totalSemua > 0
+        ? (totalJKN / totalSemua) * 100
+        : 0;
+
+    // Persentase Onsite
+    let persentaseOnsite = totalSemua > 0
+        ? (totalOnsite / totalSemua) * 100
+        : 0;
+
+    $('#presentase-jkn').text(persentaseJKN.toFixed(2) + '%');
+    $('#presentase-onsite').text(persentaseOnsite.toFixed(2) + '%');
+    }
 });
 
 // ✅ Fix: ID modal sesuai view
