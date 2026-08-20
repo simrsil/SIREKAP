@@ -121,10 +121,16 @@
                                     <div>
                                         <div class="form-row">
                                             <div class="col">
-                                                <input type="text" name="tglRujukanMasukAwal" id="tglRujukanMasukAwal" class="form-control" placeholder="--Pilih Tanggal Awal--">
+                                                <input type="text" name="tglRujukanMasukAwal" id="tglRujukanMasukAwal" class="form-control" placeholder="Pilih Tanggal Awal">
                                             </div>
                                             <div class="col">
-                                                <input type="text" name="tglRujukanMasukAkhir" id="tglRujukanMasukAkhir" class="form-control" placeholder="--Pilih Tanggal Akhir--">
+                                                <input type="text" name="tglRujukanMasukAkhir" id="tglRujukanMasukAkhir" class="form-control" placeholder="Pilih Tanggal Akhir">
+                                            </div>
+                                            <div class="col-">
+                                                <select class="form-control" id="status">
+                                                    <option value="Ralan">Ralan</option>
+                                                    <option value="Ranap">Ranap</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -137,28 +143,12 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-responsive-lg table-bordered" id="tabel-rujuk-masuk">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>Status Lanjut</th>
-                                    <th>Kiriman</th>
-                                    <th>Rujuk Masuk</th>
-                                    <th>Tidak Rujuk</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-responsive-lg table-bordered table-sm" id="tabel-rujukan-masuk-detail">
+                        <table class="table table-responsive-lg table-bordered table-sm" id="tabel-rujukan-masuk">
                             <thead>
                                 <tr>
-                                    <th>Tgl. Registrasi</th>
-                                    <th>No.Rawat</th>
-                                    <th>No.RM</th>
-                                    <th>Pasien</th>
-                                    <th>Stts. Rawat</th>
-                                    <th>Stts. Rujuk</th>
-                                    <th>Perujuk/Rujukan</th>
+                                    <th>No</th>
+                                    <th>Rujukan</th>
+                                    <th>Jumlah</th>
                                 </tr>
                             </thead>
                         </table>
@@ -169,4 +159,4 @@
         </div>
     </div>
 </section>
-<script src="<?= base_url("Assets/js/app/rujukan.js") ?>"></script>
+<script src="<?= base_url('Assets/js/app/rujukan.js?v=' . filemtime(FCPATH . 'Assets/js/app/rujukan.js')) ?>"></script>

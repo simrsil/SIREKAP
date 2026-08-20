@@ -73,42 +73,26 @@ class ModelRujukan extends CI_Model
         return $this->db->get();
     }
 
-    public function getRujukanMasuk($tglRegistrasiAwal, $tglRegistrasiAkhir, $search)
+    public function jmlRujukanMasuk($tglRegistrasiAwal, $tglRegistrasiAkhir, $status)
     {
-        $this->db->select('reg_periksa.tgl_registrasi, reg_periksa.no_rawat, pasien.no_rkm_medis, pasien.nm_pasien, reg_periksa.status_lanjut, IF(rujuk_masuk.perujuk IS NOT NULL, rujuk_masuk.perujuk, "-") AS rujukan,
-                    IF(rujuk_masuk.no_balasan IS NOT NULL, "Rujuk", "Tidak Rujuk") AS stts_rujuk');
-        $this->db->from('reg_periksa');
-        $this->db->join('pasien', 'reg_periksa.no_rkm_medis = pasien.no_rkm_medis', 'inner');
-        $this->db->join('dokter', 'reg_periksa.kd_dokter = dokter.kd_dokter', 'inner');
-        $this->db->join('rujuk_masuk', 'reg_periksa.no_rawat = rujuk_masuk.no_rawat', 'left');
-
-        if (!empty($search)) {
-            $this->db->group_start();
-            $this->db->like('reg_periksa.no_rawat', $search);
-            $this->db->or_like('pasien.no_rkm_medis', $search);
-            $this->db->or_like('pasien.nm_pasien', $search);
-            $this->db->or_like('rujuk_masuk.perujuk', $search);
-            $this->db->group_end();
-        }
-
-        $this->db->where('reg_periksa.tgl_registrasi >=', $tglRegistrasiAwal);
-        $this->db->where('reg_periksa.tgl_registrasi <=', $tglRegistrasiAkhir);
-        $this->db->group_by('reg_periksa.no_rawat');
-        $this->db->order_by('reg_periksa.tgl_registrasi, reg_periksa.jam_reg');
-    }
-
-    public function TampilRujukanMasuk($tglRegistrasiAwal, $tglRegistrasiAkhir, $start, $length, $search)
-    {
-        $this->getRujukanMasuk($tglRegistrasiAwal, $tglRegistrasiAkhir, $search);
-
-        $this->db->limit($length, $start);
-
-        return $this->db->get();
-    }
-
-    public function JmlHalamanRujukanMasuk($tglRegistrasiAwal, $tglRegistrasiAkhir, $search)
-    {
-        $this->getRujukanMasuk($tglRegistrasiAwal, $tglRegistrasiAkhir, $search);
+        $this->db->select("CASE 
+                            WHEN rm.no_rawat IS NULL THEN 'TIDAK ADA RUJUKAN'
+                            WHEN rm.perujuk IS NULL OR rm.perujuk = '' THEN 'TIDAK ADA RUJUKAN'
+                            ELSE rm.perujuk
+                        END AS perujuk,
+                        COUNT(DISTINCT rp.no_rawat) AS jumlah", FALSE);
+        $this->db->from('reg_periksa rp');
+        $this->db->join('rujuk_masuk rm', 'rp.no_rawat = rm.no_rawat', 'left');
+        $this->db->where('rp.status_lanjut', $status);
+        $this->db->where('rp.tgl_registrasi >=', $tglRegistrasiAwal);
+        $this->db->where('rp.tgl_registrasi <=', $tglRegistrasiAkhir);
+        $this->db->group_by('
+                    CASE 
+                        WHEN rm.no_rawat IS NULL THEN "TIDAK ADA RUJUKAN"
+                        WHEN rm.perujuk IS NULL OR rm.perujuk = "" THEN "TIDAK ADA RUJUKAN" 
+                        ELSE rm.perujuk
+                    END', FALSE);
+        $this->db->order_by('jumlah', 'DESC');
 
         return $this->db->get();
     }

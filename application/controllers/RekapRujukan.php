@@ -41,30 +41,6 @@ class RekapRujukan extends CI_Controller
         echo json_encode($data);
     }
 
-    public function JmlRujukanMasuk()
-    {
-        $tglAwalRegistrasi = $this->input->post('tglRujukanAwal');
-        $tglAkhirRegistrasi = $this->input->post('tglRujukanAkhir');
-
-        if (empty($tglAwalRegistrasi) || empty($tglAkhirRegistrasi)) {
-            $data = [];
-        } else {
-            $dataRujukan = $this->ModelRujukan->RujukanMasuk($tglAwalRegistrasi, $tglAkhirRegistrasi)->result();
-
-            $data = [];
-
-            foreach ($dataRujukan as $JmlPasien) {
-                $data[] = [
-                    'status_lanjut' => $JmlPasien->status_lanjut,
-                    'kiriman' => $JmlPasien->kiriman,
-                    'rujukan_masuk' => $JmlPasien->rujuk_non_kiriman,
-                    'tidak' => $JmlPasien->tidak_rujuk,
-                ];
-            }
-        }
-        echo json_encode($data);
-    }
-
     public function TampilRujukanKeluar()
     {
         $tanggal1 = $this->input->post('tglRujukanAwal');
@@ -86,9 +62,7 @@ class RekapRujukan extends CI_Controller
         }
 
         $RujukanKeluar = $this->ModelRujukan->TampilRujukanKeluar($tanggal1, $tanggal2, $start, $length, $search)->result();
-        // $RujukanKeluar = $this->ModelRujukan->TampilRujukanKeluar($tanggal1, $tanggal2)->result();
         $recordTotal = $this->ModelRujukan->JmlHalamanRujukanKeluar($tanggal1, $tanggal2, $search)->num_rows();
-        //$no = $this->input->post('start') + 1;
         $data = [];
 
         foreach ($RujukanKeluar as $rjk) {
@@ -115,52 +89,27 @@ class RekapRujukan extends CI_Controller
         echo json_encode($data_json);
     }
 
-    public function TampilRujukanMasuk()
+    public function JmlRujukanMasuk()
     {
-        $tanggal1 = $this->input->post('tglRujukanAwal');
-        $tanggal2 = $this->input->post('tglRujukanAkhir');
-        $start = $this->input->post('start');
-        $length = $this->input->post('length');
-        $draw = $this->input->post('draw');
-        $search = $this->input->post('search')['value'] ?? '';
+        $tglAwalRegistrasi = $this->input->post('tglRujukanAwal');
+        $tglAkhirRegistrasi = $this->input->post('tglRujukanAkhir');
+        $status = $this->input->post('status');
 
-        //JIKA KOLOM TANGGAL TIDAK DIISI, DATA YANG DI TAMPILKAN KOSONG
-        if (empty($tanggal1) || empty($tanggal2)) {
-            echo json_encode([
-                'draw' => $draw,
-                'recordsTotal' => 0,
-                'recordsFiltered' => 0,
-                'data' => []
-            ]);
-            return;
+        if (empty($tglAwalRegistrasi) || empty($tglAkhirRegistrasi)) {
+            $data = [];
+        } else {
+            $dataRujukan = $this->ModelRujukan->jmlRujukanMasuk($tglAwalRegistrasi, $tglAkhirRegistrasi, $status)->result();
+            $no = $this->input->post('start') + 1;
+            $data = [];
+
+            foreach ($dataRujukan as $JmlPasien) {
+                $data[] = [
+                    'no' => $no++,
+                    'perujuk' => $JmlPasien->perujuk,
+                    'jumlah' => $JmlPasien->jumlah,
+                ];
+            }
         }
-
-        $RujukanMasuk = $this->ModelRujukan->TampilRujukanMasuk($tanggal1, $tanggal2, $start, $length, $search)->result();
-        // $RujukanKeluar = $this->ModelRujukan->TampilRujukanKeluar($tanggal1, $tanggal2)->result();
-        $recordTotal = $this->ModelRujukan->JmlHalamanRujukanMasuk($tanggal1, $tanggal2, $search)->num_rows();
-        //$no = $this->input->post('start') + 1;
-        $data = [];
-
-        foreach ($RujukanMasuk as $rjk) {
-            $row = [];
-            //$row[] = $no++;
-            $row[] = $rjk->tgl_registrasi;
-            $row[] = $rjk->no_rawat;
-            $row[] = $rjk->no_rkm_medis;
-            $row[] = $rjk->nm_pasien;
-            $row[] = $rjk->status_lanjut;
-            $row[] = $rjk->stts_rujuk;
-            $row[] = $rjk->rujukan;
-
-            $data[] = $row;
-        }
-        $data_json = [
-            'draw' => $draw,
-            'recordsTotal' => $recordTotal,
-            'recordsFiltered' => $recordTotal,
-            'data' => $data
-        ];
-
-        echo json_encode($data_json);
+        echo json_encode($data);
     }
 }

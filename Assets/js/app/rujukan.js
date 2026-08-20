@@ -62,25 +62,9 @@
         });
     });
 
-    let tabelRujukanMasukAsek = $('#tabel-rujukan-masuk-detail').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: 'RekapRujukan/TampilRujukanMasuk',
-            type: "post",
-            data: function(data) {
-                data.tglRujukanAwal = $('#tglRujukanMasukAwal').val();
-                data.tglRujukanAkhir = $('#tglRujukanMasukAkhir').val();
-            }
-        }
-    })
-    $('#btn-tampil-masuk').on('click', function() {
-        $('#modalRujukanMasuk').modal('hide');
-        tabelRujukanMasukAsek.ajax.reload();
-    });
 
     $(document).ready(function() {
-        let tabelRujukMasuk = $('#tabel-rujuk-masuk').DataTable({
+        let tabelRujukMasuk = $('#tabel-rujukan-masuk').DataTable({
             processing: true,
             serverSide: false,
             paging: false,
@@ -92,24 +76,21 @@
                 data: function(data) {
                     data.tglRujukanAwal = $('#tglRujukanMasukAwal').val();
                     data.tglRujukanAkhir = $('#tglRujukanMasukAkhir').val();
+                    data.status = $('#status').val();
                 },
                 dataSrc: ''
             },
             columns: [{
-                    data: 'status_lanjut',
-                    width: "50%"
-                },
-                {
-                    data: 'kiriman',
-                    width: "20%"
-                },
-                {
-                    data: 'rujukan_masuk',
-                    width: "20%"
-                },
-                {
-                    data: 'tidak',
+                    data: 'no',
                     width: "10%"
+                },
+                {
+                    data: 'perujuk',
+                    width: "45%"
+                },
+                {
+                    data: 'jumlah',
+                    width: "45%"
                 }
             ]
         });
